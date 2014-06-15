@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Sensor Dev</title>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      function do_stuff() {
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            socket.on('connect', function() {
+                socket.emit('event', {data: 'connected!'});
+            });
+
+            socket.on('sensor_data', function(msg) {
+                if (msg.type == "sensor") {
+                  document.getElementById('sensor').innerHTML = msg.data;
+                }
+            });
+            }
+    </script>
+</head>
+<body onload="do_stuff()">
+    <h1>Sensors</h1>
+    <h3 id="sensor"></h3>
+</body>
+</html>
