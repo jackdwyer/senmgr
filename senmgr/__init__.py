@@ -15,3 +15,4 @@ ws = SocketIO(app)
 db = SQLAlchemy()
 
 from . import views
+from sensors import models
