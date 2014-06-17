@@ -3,7 +3,7 @@ monkey.patch_all()
 from threading import Thread
 from flask import render_template
 from flask.ext.socketio import emit
-from sensors import subscribe, get_sensor_list
+from sensors.sensors import subscribe, get_sensor_list
 from . import app, con, ws
 
 @app.route('/')
