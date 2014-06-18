@@ -8,6 +8,14 @@ class Sensor(db.Model):
         self.sensor_key = sensor_key
         self.description = description
 
+    @property
+    def serialise(self):
+        return {
+            'id': self.id,
+            'sensor_key': self.sensor_key,
+            'description': self.description
+            }
+
     def __repr__(self):
         return '<Sensor id:{0} key:{1}>'.format(self.id, self.sensor_key)
     
