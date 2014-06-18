@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from .models import Sensor
-from .. import db
+from . import db
 
 sensors = Blueprint('sensors', __name__,
     template_folder='templates')
