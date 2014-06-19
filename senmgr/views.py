@@ -17,5 +17,5 @@ def on_disconnect():
 
 @ws.on('connect')
 def on_connect():
-    emit('my response', {'data': 'connected'}) #, 'count': 0})
+    emit('my response', {'data': 'connected'})
 
