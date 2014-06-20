@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from models import Sensor
 from forms import SensorForm
 from . import db
@@ -14,14 +14,16 @@ def index():
 def get_all_sensors():
     return jsonify(sensors=[val.serialise for val in Sensor.query.all()])
 
-@sensors.route('/register/<sensor_name>', methods=['POST'])
-def register(sensor_name):
+@sensors.route('/register', methods=['POST'])
+def register():
     form = SensorForm(request.form)
     if form.validate():
-        return "Sensor: {0} added".format(sensor_name)
-    #sensor = Sensor(sensor_name, "description place holder")
-    #db.session.add(sensor)
-    #db.session.commit()
-    return "nope" 
+        #sensor = Sensor(sensor_name, "description place holder")
+        #db.session.add(sensor)
+        #db.session.commit()
+        return "valid"
+        #return 201 - created
+        #return 202 if already exists
+    return "invalid", 400
 
 
