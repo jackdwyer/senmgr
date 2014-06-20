@@ -18,12 +18,13 @@ def get_all_sensors():
 def register():
     form = SensorForm(request.form)
     if form.validate():
-        #sensor = Sensor(sensor_name, "description place holder")
-        #db.session.add(sensor)
-        #db.session.commit()
-        return "valid"
-        #return 201 - created
-        #return 202 if already exists
+        if Sensor.query.filter(Sensor.sensor_key == form.data.get('sensor_key')).first():
+            return "sensor object already ready created", 202
+        else:
+            sensor = Sensor(form.data.get('sensor_key'), form.data.get('description'))
+            db.session.add(sensor)
+            db.session.commit()
+            return "created sensor object", 201
     return "invalid", 400
 
 
