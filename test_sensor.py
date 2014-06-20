@@ -11,3 +11,7 @@ print r.text
 #    r.publish('test', str(i))
 #    i += 1
 #    time.sleep(0.1)
+data = {"sensor_key":"test_ssensor", "description":"hey im a sensor"}
+r = requests.post("http://localhost:5000/sensor/register", data=data)
+print r.text
+
