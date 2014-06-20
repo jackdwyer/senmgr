@@ -1,7 +1,7 @@
 from . import db
 class Sensor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    sensor_key = db.Column(db.String(50), unique=True)
+    sensor_key = db.Column(db.String(50), unique=True, nullable=False)
     description = db.Column(db.String(255))
 
     def __init__(self, sensor_key, description):
