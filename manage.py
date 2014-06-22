@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 import argparse
-from senmgr import app, ws, db, config
+from senmgr import app, ws, db
 
 parser = argparse.ArgumentParser(description="Sensor Management")
 parser.add_argument("--createdb", action='store_true')
