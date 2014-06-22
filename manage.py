@@ -3,12 +3,16 @@ import argparse
 from senmgr import app, ws, db, config
 
 parser = argparse.ArgumentParser(description="Sensor Management")
-parser.add_argument("-create_db", action='store_true')
-parser.add_argument("-world", action='store_true')
+parser.add_argument("--createdb", action='store_true')
+parser.add_argument("--world", action='store_true')
+parser.add_argument("--database", type=str, default="/tmp/senmgr.db")
 args = parser.parse_args()
 
-if args.create_db:
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + args.database
+
+if args.createdb:
     db.create_all()
+
 
 if __name__ == "__main__":
     if args.world:
