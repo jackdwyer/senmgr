@@ -12,6 +12,7 @@ except OSError:
     pass
 
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:////tmp/unittest-senmgr.db'
+app.config["DEBUG"] = False 
 db.create_all()
 
 Thread(target=ws.run, args=[app]).start()
@@ -27,11 +28,12 @@ class CreateSensor(unittest.TestCase):
         r = requests.post("http://localhost:5000/sensor/register", data=data)
         self.assertEqual(r.status_code, 202)    
 
+    def test_kill_server(self):
+        requests.get("http://localhost:5000/die")
+
         
 
 if __name__ == "__main__":
-    print dir(ws)
     unittest.main()
-    exit()
     
 
