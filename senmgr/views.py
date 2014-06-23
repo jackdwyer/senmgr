@@ -11,6 +11,11 @@ def index():
     Thread(target=subscribe, args=[con, get_sensor_list(con), ws]).start()
     return render_template('index.html')
 
+@app.route('/die')
+def _shutdown():
+    ws.server.stop(timeout=0)
+    return ""
+
 @ws.on('disconnected')
 def on_disconnect():
     print 'Client disconnected'
