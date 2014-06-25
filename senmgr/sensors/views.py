@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request, render_template
+from sqlalchemy.orm.exc import NoResultFound
 from models import Sensor
 from forms import SensorForm
 from . import db
@@ -18,13 +19,12 @@ def get_all_sensors():
 def register():
     form = SensorForm(request.form)
     if form.validate():
-        if Sensor.query.filter(Sensor.sensor_key == form.data.get('sensor_key')).first():
-            return "sensor object already ready created", 202
-        else:
+        try:
+            sensor = Sensor.query.filter(Sensor.sensor_key == form.data.get('sensor_key')).one()
+            return jsonify({"sensor_id":str(sensor.id)}), 202
+        except NoResultFound:
             sensor = Sensor(form.data.get('sensor_key'), form.data.get('description'))
             db.session.add(sensor)
             db.session.commit()
-            return "created sensor object", 201
+            return jsonify({"sensor_id":str(sensor.id)}), 201
     return "invalid", 400
-
-
