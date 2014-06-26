@@ -7,7 +7,7 @@ import os
 
 from senmgr import app, db, ws
 
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///memory'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/unittest-db.db"
 app.config["DEBUG"] = False 
 db.create_all()
 
@@ -23,13 +23,11 @@ class CreateSensor(unittest.TestCase):
         data = {"sensor_key":"test_sensor_unittest"}
         r = requests.post("http://localhost:5000/sensor/register", data=data)
         self.assertEqual(r.status_code, 202)    
+        self.assertIsInstance(r.json(), dict)
 
     def test_kill_server(self):
         requests.get("http://localhost:5000/die")
 
-        
 
 if __name__ == "__main__":
     unittest.main()
-    
-
