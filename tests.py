@@ -6,8 +6,12 @@ import requests
 import os
 
 from senmgr import app, db, ws
+try:
+    os.remove("/tmp/test-senmgr.db")
+except OSError:
+    pass
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/unittest-db.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/test-senmgr.db"
 app.config["DEBUG"] = False
 db.create_all()
 
