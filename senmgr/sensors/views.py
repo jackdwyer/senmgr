@@ -1,3 +1,4 @@
+import ast
 from flask import Blueprint, jsonify, request, render_template
 from sqlalchemy.orm.exc import NoResultFound
 from models import Sensor
@@ -13,6 +14,13 @@ sensors = Blueprint('sensors', __name__,
 def index():
     return "sensor blueprint"
 
+
+
+@sensors.route('/load', methods=['POST'])
+def load_sensors():
+    data = ast.literal_eval(request.json)
+    return "got some data buddy"
+    
 
 @sensors.route('/all')
 @json
