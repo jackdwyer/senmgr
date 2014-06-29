@@ -11,9 +11,7 @@
             });
 
             socket.on('sensor_data', function(msg) {
-                if (msg.type == "sensor") {
-                  document.getElementById('sensor').innerHTML = msg.data;
-                }
+                console.log(msg.data);
             });
             }
     </script>
