@@ -1,23 +1,28 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Sensor Dev</title>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-      function do_stuff() {
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
-            socket.on('connect', function() {
-                socket.emit('event', {data: 'connected!'});
-            });
+  <title>Sensor Dev</title>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    function do_stuff() {
+      var socket = io.connect('http://' + document.domain + ':' + location.port);
+      socket.on('connect', function() {
+        socket.emit('event', {data: 'connected!'});
+      });
 
-            socket.on('sensor_data', function(msg) {
-                console.log(msg.data);
-            });
-            }
-    </script>
+      socket.on('sensor_data', function(msg) {
+        var el = $("#"+msg.type);
+        if (el.length === 0) {
+          $(document.body).append('<h3 id='+msg.type+'>'+msg.data+'</h3>');
+        } else {
+          el.text(msg.data);
+        }
+      });
+    }
+  </script>
 </head>
 <body onload="do_stuff()">
-    <h1>Sensors</h1>
-    <h3 id="sensor"></h3>
+  <h1>Sensors</h1>
 </body>
 </html>
