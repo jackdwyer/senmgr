@@ -15,6 +15,6 @@ db = SQLAlchemy(app)
 
 from . import views
 
-from sensors.models import Sensor
+from sensors.models import Sensor, Type
 from sensors.views import sensors
 app.register_blueprint(sensors, url_prefix='/sensor')
