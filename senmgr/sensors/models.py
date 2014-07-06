@@ -33,7 +33,7 @@ class Sensor(db.Model, Timestamp):
         return dic
 
     def __repr__(self):
-        return '<Sensor id:{0} key:{1}>'.format(self.id, self.name)
+        return '<Sensor id:{0} name:{1}>'.format(self.id, self.name)
 
 
 class Type(db.Model):
