@@ -13,7 +13,7 @@ class Sensor(db.Model, Timestamp):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    redis_key = db.Column(db.String(36), default=str(uuid4()))
+    key = db.Column(db.String(36), default=str(uuid4()))
     description = db.Column(db.String(255))
     _type = db.Column(db.Integer, db.ForeignKey('type.id'))
 
@@ -23,18 +23,14 @@ class Sensor(db.Model, Timestamp):
 
     @property
     def uuid(self):
-        return UUID(self.redis_key)
+        return UUID(self.key)
 
     @property
     def serialise(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'key': str(self.uuid),
-            'description': self.description,
-            'created_at': str(self.created_at),
-            'updated_at': str(self.updated_at)
-            }
+        dic = {}
+        for val in [v for v in vars(self) if not v.startswith('_')]:
+            dic[val] = getattr(self, val)
+        return dic
 
     def __repr__(self):
         return '<Sensor id:{0} key:{1}>'.format(self.id, self.name)
